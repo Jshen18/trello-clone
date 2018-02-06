@@ -8,12 +8,14 @@ import registerServiceWorker from './registerServiceWorker';
 const theme = {
   primaryColor: '#0b5596',
   secondaryColor: '#0b5495',
-  primaryFontColor: '#FFF'
+  primaryFontColor: '#FFF',
+  primaryGrey: '#dbdedf',
+  secondaryGrey: '#70797e'
 }
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <App /> 
+    <App />
   </ThemeProvider>,
   document.getElementById('root')
 );

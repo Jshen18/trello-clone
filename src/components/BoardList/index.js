@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyledBoardList, StyledBoardListItem, StyledBoardLink } from './styles';
+import CreateBoard from '../CreateBoard';
 
 class BoardList extends Component {
   render() {
@@ -7,11 +8,6 @@ class BoardList extends Component {
       <div>
         <h2>My Boards</h2>
         <StyledBoardList>
-          <StyledBoardListItem>
-            <StyledBoardLink>
-              <span>Create a new board...</span>
-            </StyledBoardLink>
-          </StyledBoardListItem>
           <StyledBoardListItem>
             <StyledBoardLink>
               <span>Todo</span>
@@ -31,6 +27,9 @@ class BoardList extends Component {
             <StyledBoardLink>
               <span>Poopoo</span>
             </StyledBoardLink>
+          </StyledBoardListItem>
+          <StyledBoardListItem>
+            <CreateBoard />
           </StyledBoardListItem>
         </StyledBoardList>
       </div>
