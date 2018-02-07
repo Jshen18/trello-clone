@@ -1,39 +1,64 @@
 import React, { Component } from 'react';
-import { StyledBoardList, StyledBoardListItem, StyledBoardLink } from './styles';
+import { StyledBoardList, StyledBoardListItem, StyledBoardLink, StyledContainer } from './styles';
 import CreateBoard from '../CreateBoard';
+import storage from '../../storage';
+
+const BOARDS_KEY = 'boards'
 
 class BoardList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      boards: []
+    }
+    this.createBoard = this.createBoard.bind(this);
+    this.syncWithLocalStorage = this.syncWithLocalStorage.bind(this);
+  }
+
+  syncWithLocalStorage() {
+    this.setState({
+      boards: storage(localStorage).get(BOARDS_KEY) || []
+    });
+  }
+
+  renderBoards(boards) {
+    return boards.map((board, index) => {
+      return (
+        <StyledBoardListItem key={index}>
+          <StyledBoardLink>
+            <span>{board.title}</span>
+          </StyledBoardLink>
+        </StyledBoardListItem>
+      );
+    })
+  }
+
+  createBoard(board) {
+    this.setState({
+      boards: [...this.state.boards, board]
+    });
+  }
+
+  componentDidUpdate() {
+    storage(localStorage).set(BOARDS_KEY, this.state.boards);
+  }
+
+  componentDidMount() {
+    this.syncWithLocalStorage()
+  }
+
   render() {
+    const { boards } = this.state;
     return (
-      <div>
+      <StyledContainer>
         <h2>My Boards</h2>
         <StyledBoardList>
+          { this.renderBoards(boards) } 
           <StyledBoardListItem>
-            <StyledBoardLink>
-              <span>Todo</span>
-            </StyledBoardLink>
-          </StyledBoardListItem>
-          <StyledBoardListItem>
-            <StyledBoardLink>
-              <span>Groceries</span>
-            </StyledBoardLink>
-          </StyledBoardListItem>
-          <StyledBoardListItem>
-            <StyledBoardLink>
-              <span>Homework</span>
-            </StyledBoardLink>
-          </StyledBoardListItem>
-          <StyledBoardListItem>
-            <StyledBoardLink>
-              <span>Poopoo</span>
-            </StyledBoardLink>
-          </StyledBoardListItem>
-          <StyledBoardListItem>
-            <CreateBoard />
+            <CreateBoard createBoard={this.createBoard}/>
           </StyledBoardListItem>
         </StyledBoardList>
-      </div>
-
+      </StyledContainer>
     );
   }
 };
