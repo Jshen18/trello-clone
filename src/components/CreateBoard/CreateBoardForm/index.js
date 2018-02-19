@@ -19,12 +19,9 @@ class CreateBoardForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.createBoard({
-      title: this.state.title
-    });
-    this.setState({
-      title: ''
-    });
+    this.props.createBoard({ title: this.state.title });
+    this.setState({ title: '' });
+    this.props.toggleForm();
   }
 
   render() {
