@@ -14,4 +14,8 @@ export const StyledCreateBoardButton = styled.button`
   border: none;
   cursor: pointer;
   box-sizing: content-box;
+
+  &:hover {
+    background-color: #c9cdcf;
+  }
 `
