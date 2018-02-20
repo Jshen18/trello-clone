@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyledCreateForm, StyledFormHeader, StyledFormContent, StyledTextInput, StyledSubmitInput, StyledLabelInput } from './styles';
+import uniqueId from 'lodash/uniqueId';
 
 class CreateBoardForm extends Component {
   constructor(props) {
@@ -14,12 +15,16 @@ class CreateBoardForm extends Component {
   handleInput(event) {
     this.setState({
       title: event.target.value
-    });
+  });
+
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.createBoard({ title: this.state.title });
+    this.props.createBoard({ 
+      id: uniqueId(''),
+      title: this.state.title 
+    });
     this.setState({ title: '' });
     this.props.toggleForm();
   }
