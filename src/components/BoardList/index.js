@@ -25,7 +25,7 @@ class BoardList extends Component {
     return boards.map((board, index) => {
       return (
         <StyledBoardListItem key={index}>
-          <StyledBoardLink>
+          <StyledBoardLink href={`/boards/${board.id}`}>
             <span>{board.title}</span>
           </StyledBoardLink>
         </StyledBoardListItem>

@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
+import history from './history';
+import router from './router';
+import routes from './routes';
 import './index.css';
-import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 
 const theme = {
@@ -15,11 +17,24 @@ const theme = {
   baseFontSize: '14px'
 }
 
-ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <App />
-  </ThemeProvider>,
-  document.getElementById('root')
-);
+const container = document.getElementById('root');
 
+function renderComponent(component) {
+  ReactDOM.render(
+    <ThemeProvider theme={theme}>
+      { component } 
+    </ThemeProvider>,
+    container
+  );
+}
+
+function render(location) {
+  router.resolve(routes, location)
+    .then(renderComponent)
+    .catch(error => router.resolve(routes, { ...location, error })
+    .then(renderComponent));
+}
+
+render(history.location);
+history.listen(render);
 registerServiceWorker();
