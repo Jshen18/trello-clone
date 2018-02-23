@@ -22,7 +22,7 @@ class CreateBoardForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.createBoard({ 
-      id: uniqueId(''),
+      id: uniqueId(),
       title: this.state.title 
     });
     this.setState({ title: '' });

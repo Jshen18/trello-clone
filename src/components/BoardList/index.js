@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyledBoardList, StyledBoardListItem, StyledBoardLink, StyledContainer } from './styles';
 import CreateBoard from '../CreateBoard';
 import storage from '../../storage';
+import history from '../../history';
 
 const BOARDS_KEY = 'boards'
 
@@ -21,11 +22,19 @@ class BoardList extends Component {
     });
   }
 
+  onTransition(event) {
+    event.preventDefault();
+    history.push({
+      pathname: event.currentTarget.pathname,
+      search: event.currentTarget.search
+    });
+  }
+
   renderBoards(boards) {
     return boards.map((board, index) => {
       return (
         <StyledBoardListItem key={index}>
-          <StyledBoardLink href={`/boards/${board.id}`}>
+          <StyledBoardLink onClick={this.onTransition} href={`/boards/${board.id}`}>
             <span>{board.title}</span>
           </StyledBoardLink>
         </StyledBoardListItem>
